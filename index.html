@@ -1294,6 +1294,28 @@
         </div>
 
         <div class="settings-group">
+            <label for="calc-method">طريقة حساب مواقيت الصلاة:</label>
+            <select id="calc-method" class="settings-select">
+                <option value="3">رابطة العالم الإسلامي (MWL)</option>
+                <option value="2">الجمعية الإسلامية لأمريكا الشمالية (ISNA)</option>
+                <option value="13">رئاسة الشؤون الدينية التركية (ديانت)</option>
+                <option value="1">جامعة العلوم الإسلامية - كراتشي</option>
+                <option value="5">الهيئة المصرية العامة للمساحة</option>
+                <option value="4">أم القرى - مكة المكرمة</option>
+                <option value="15">لجنة مراقبة الأهلة العالمية</option>
+                <option value="16">دبي</option>
+            </select>
+        </div>
+
+        <div class="settings-group">
+            <label for="school-method">مذهب حساب العصر:</label>
+            <select id="school-method" class="settings-select">
+                <option value="0">شافعي / مالكي / حنبلي (مثل الظل)</option>
+                <option value="1">حنفي (ضعف الظل)</option>
+            </select>
+        </div>
+
+        <div class="settings-group">
             <div style="display: flex; gap: 10px; align-items: center; justify-content: center;">
                 <button id="reset-settings" class="reset-button">تصفير الإعدادات</button>
                 <button id="customize-dock" class="customize-dock-button" title="تخصيص أشرطة Rockdock">
@@ -1714,6 +1736,31 @@
 
         .settings-group input[type="url"] {
             margin-bottom: 10px;
+        }
+
+        .settings-group select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            font-size: 0.85rem;
+            font-family: var(--font-arabic);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .settings-group select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            background-color: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 10px rgba(76, 175, 80, 0.3);
+        }
+
+        .settings-group select option {
+            background-color: #2a2a40;
+            color: #fff;
         }
 
         /* صف إدخال رابط الخلفية مع الأزرار */
@@ -2644,6 +2691,30 @@
         };
         const PRAYER_ORDER = ["Fajr", "Sunrise", "Dhuhr", "Asr", "Maghrib", "Isha"];
 
+        // إعدادات حساب مواقيت الصلاة (افتراضيات مناسبة لأوروبا)
+        let calculationMethod = 13; // Turkey (Diyanet) - أفضل لليونان وأوروبا
+        let schoolMethod = 0;       // Shafi/Maliki/Hanbali (مثل الظل)
+
+        function loadCalculationSettings() {
+            const savedMethod = localStorage.getItem('islam-calc-method');
+            const savedSchool = localStorage.getItem('islam-school-method');
+            if (savedMethod !== null) calculationMethod = parseInt(savedMethod);
+            if (savedSchool !== null) schoolMethod = parseInt(savedSchool);
+            applyCalculationSettings();
+        }
+
+        function saveCalculationSettings() {
+            localStorage.setItem('islam-calc-method', calculationMethod);
+            localStorage.setItem('islam-school-method', schoolMethod);
+        }
+
+        function applyCalculationSettings() {
+            const methodSelect = document.getElementById('calc-method');
+            const schoolSelect = document.getElementById('school-method');
+            if (methodSelect) methodSelect.value = String(calculationMethod);
+            if (schoolSelect) schoolSelect.value = String(schoolMethod);
+        }
+
         // **1. وظائف الساعة والتاريخ**
         function updateClockAndDate() {
             const now = new Date();
@@ -2695,8 +2766,8 @@
             const month = date.getMonth() + 1;
             const year = date.getFullYear();
 
-            // استخدام طريقة حساب أكثر دقة (UMM AL-QURA, MAKKAH)
-            const url = `https://api.aladhan.com/v1/calendar/${year}/${month}?latitude=${latitude}&longitude=${longitude}&method=4&school=1&adjustment=2`;
+            // استخدام طريقة الحساب والمذهب المختارين من الإعدادات
+            const url = `https://api.aladhan.com/v1/calendar/${year}/${month}?latitude=${latitude}&longitude=${longitude}&method=${calculationMethod}&school=${schoolMethod}&adjustment=1`;
 
             try {
                 const response = await fetch(url);
@@ -2743,20 +2814,25 @@
         // **2.1. تنسيق وقت الصلاة بدقة**
         function formatPrayerTime(timeString) {
             if (!timeString || typeof timeString !== 'string') return '--:--';
-            
+
             // إزالة أي مساحات وتنسيق الوقت
             const cleanTime = timeString.trim();
             const [hours, minutes] = cleanTime.split(':');
-            
+
             if (!hours || !minutes) return '--:--';
-            
+
             // التأكد من أن الساعات بين 00-23 والدقائق بين 00-59
-            const h = parseInt(hours.padStart(2, '0'));
+            let h = parseInt(hours.padStart(2, '0'));
             const m = parseInt(minutes.padStart(2, '0'));
-            
+
             if (isNaN(h) || isNaN(m) || h > 23 || m > 59) return '--:--';
-            
-            return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
+
+            // تحويل إلى نظام 12 ساعة
+            const period = h >= 12 ? 'م' : 'ص';
+            h = h % 12;
+            if (h === 0) h = 12;
+
+            return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')} ${period}`;
         }
 
         // **2.2. التحقق من مؤشرات الصلاة**
@@ -3002,8 +3078,8 @@
             });
 
             try {
-                // استخدام API
-                const url = `https://api.aladhan.com/v1/timingsByCity?city=${encodeURIComponent(city)}&country=${encodeURIComponent(country)}&method=4`;
+                // استخدام API مع طريقة الحساب والمذهب المختارين
+                const url = `https://api.aladhan.com/v1/timingsByCity?city=${encodeURIComponent(city)}&country=${encodeURIComponent(country)}&method=${calculationMethod}&school=${schoolMethod}`;
                 console.log('Fetching from:', url);
                 
                 const response = await fetch(url);
@@ -3031,7 +3107,7 @@
                     PRAYER_ORDER.forEach(prayer => {
                         const timeEl = document.getElementById(prayer);
                         if (timeEl && timings[prayer]) {
-                            timeEl.textContent = timings[prayer].substring(0, 5);
+                            timeEl.textContent = formatPrayerTime(timings[prayer]);
                         }
                     });
                     
@@ -3429,6 +3505,7 @@
         }
 
         // **7. تشغيل البرنامج (محسّن)**
+        loadCalculationSettings();
         loadSavedCity();
         
         // محاولة كشف الموقع تلقائياً عند بدء التشغيل (باحترافية)
@@ -3467,6 +3544,26 @@
         document.getElementById('settings-toggle').addEventListener('click', function() {
             const panel = document.getElementById('settings-panel');
             panel.classList.toggle('show');
+            applyCalculationSettings();
+        });
+
+        // مستمعو تغيير طريقة الحساب والمذهب
+        document.getElementById('calc-method').addEventListener('change', function(e) {
+            calculationMethod = parseInt(e.target.value);
+            saveCalculationSettings();
+            // إعادة جلب المواقيت بالإعدادات الجديدة
+            if (defaultLatitude && defaultLongitude) {
+                getPrayerTimes(defaultLatitude, defaultLongitude, currentCity);
+            }
+        });
+
+        document.getElementById('school-method').addEventListener('change', function(e) {
+            schoolMethod = parseInt(e.target.value);
+            saveCalculationSettings();
+            // إعادة جلب المواقيت بالإعدادات الجديدة
+            if (defaultLatitude && defaultLongitude) {
+                getPrayerTimes(defaultLatitude, defaultLongitude, currentCity);
+            }
         });
 
         // إغلاق النافذة عند النقر خارجها
@@ -3635,6 +3732,8 @@
                 localStorage.removeItem('islam-saved-city');
                 localStorage.removeItem('islam-saved-lat');
                 localStorage.removeItem('islam-saved-lon');
+                localStorage.removeItem('islam-calc-method');
+                localStorage.removeItem('islam-school-method');
                 localStorage.removeItem('islam-dock-visible');
                 localStorage.removeItem('islam-ai-dock-visible');
                 
