@@ -2,11 +2,7 @@
   "name": "islam-time",
   "private": true,
   "scripts": {
-    "gallery:update": "node scripts/generate-img-manifest.js",
-    "gallery:watch": "node scripts/watch-img-gallery.js",
-    "predev": "node scripts/generate-img-manifest.js",
-    "dev": "node scripts/dev-server.js",
-    "start": "npm run dev",
+    "start": "node scripts/start.js",
     "prepare:push": "node scripts/generate-img-manifest.js"
   }
 }
