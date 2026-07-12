@@ -1,0 +1,9 @@
+{
+  "name": "islam-time",
+  "private": true,
+  "scripts": {
+    "gallery:update": "node scripts/generate-img-manifest.js",
+    "gallery:watch": "node scripts/watch-img-gallery.js",
+    "dev": "node scripts/dev-server.js"
+  }
+}

@@ -1,0 +1,22 @@
+// Auto-generated — do not edit manually. Run: node scripts/generate-img-manifest.js
+window.IMG_GALLERY = {
+    "updatedAt": "2026-07-12T18:55:16.309Z",
+    "images": [
+        {
+            "src": "img/background.jpg",
+            "name": "خلفية افتراضية"
+        },
+        {
+            "src": "img/1.jpg",
+            "name": "1"
+        },
+        {
+            "src": "img/2.jpg",
+            "name": "2"
+        },
+        {
+            "src": "img/3.jpg",
+            "name": "3"
+        }
+    ]
+};
