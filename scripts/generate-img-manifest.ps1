@@ -4,6 +4,7 @@ $imgDir = Join-Path $root 'img'
 $manifestPath = Join-Path $imgDir 'manifest.json'
 $extensions = @('.jpg', '.jpeg', '.png', '.webp', '.gif', '.bmp', '.avif')
 $nameOverrides = @{
+    'background.webp' = 'خلفية افتراضية'
     'background.jpg' = 'خلفية افتراضية'
 }
 
@@ -25,7 +26,7 @@ if (-not (Test-Path $imgDir)) {
 $images = Get-ChildItem -Path $imgDir -File |
     Where-Object { $extensions -contains $_.Extension.ToLower() -and $_.Name -ne 'manifest.json' } |
     Sort-Object {
-        if ($_.Name -eq 'background.jpg') { '000' } else { $_.Name }
+        if ($_.Name -eq 'background.webp' -or $_.Name -eq 'background.jpg') { '000' } else { $_.Name }
     } |
     ForEach-Object {
         [ordered]@{

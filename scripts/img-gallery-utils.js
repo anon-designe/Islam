@@ -7,7 +7,9 @@ const MANIFEST_PATH = path.join(IMG_DIR, 'manifest.json');
 const GALLERY_JS_PATH = path.join(IMG_DIR, 'gallery.js');
 const INDEX_PATH = path.join(ROOT, 'index.html');
 const IMAGE_EXTENSIONS = new Set(['.jpg', '.jpeg', '.png', '.webp', '.gif', '.bmp', '.avif']);
+const DEFAULT_BG_FILE = 'background.webp';
 const NAME_OVERRIDES = {
+    [DEFAULT_BG_FILE]: 'خلفية افتراضية',
     'background.jpg': 'خلفية افتراضية'
 };
 
@@ -28,8 +30,8 @@ function collectImages() {
             return IMAGE_EXTENSIONS.has(ext);
         })
         .sort((a, b) => {
-            if (a === 'background.jpg') return -1;
-            if (b === 'background.jpg') return 1;
+            if (a === DEFAULT_BG_FILE || a === 'background.jpg') return -1;
+            if (b === DEFAULT_BG_FILE || b === 'background.jpg') return 1;
             return a.localeCompare(b, 'ar');
         })
         .map((file) => ({

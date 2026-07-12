@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="img/gallery.js"></script>
     <!-- IMG_GALLERY_DATA -->
-    <script id="img-gallery-data" type="application/json">{"updatedAt":"2026-07-12T19:20:36.276Z","images":[{"src":"img/1.webp","name":"1"},{"src":"img/2.webp","name":"2"},{"src":"img/3.webp","name":"3"},{"src":"img/4.webp","name":"4"},{"src":"img/5.avif","name":"5"},{"src":"img/background.webp","name":"background"}]}</script>
+    <script id="img-gallery-data" type="application/json">{"updatedAt":"2026-07-12T19:22:41.801Z","images":[{"src":"img/background.webp","name":"خلفية افتراضية"},{"src":"img/1.webp","name":"1"},{"src":"img/2.webp","name":"2"},{"src":"img/3.webp","name":"3"},{"src":"img/4.webp","name":"4"},{"src":"img/5.avif","name":"5"}]}</script>
     <!-- /IMG_GALLERY_DATA -->
     
     <style>
@@ -33,7 +33,7 @@
             --border-radius: 12px;
             --font-arabic: 'Cairo', sans-serif;
             --font-english: 'Roboto', sans-serif;
-            --default-bg-url: url('img/background.jpg');
+            --default-bg-url: url('img/background.webp');
             --scrollbar-size: 10px;
             --scrollbar-size-thin: 7px;
             --scrollbar-track: rgba(255, 255, 255, 0.07);
@@ -752,8 +752,24 @@
         .city-name {
             font-size: 2rem;
             font-weight: 700;
-            margin-bottom: 30px;
+            margin-bottom: 8px;
             color: var(--secondary-color);
+        }
+
+        .prayer-method-info {
+            font-size: 0.82rem;
+            color: rgba(255, 255, 255, 0.65);
+            margin-bottom: 24px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+            padding: 0 10px;
+        }
+
+        .prayer-method-info i {
+            color: var(--primary-color);
+            margin-left: 4px;
         }
 
         /* حاوية مواقيت الصلاة */
@@ -1177,22 +1193,22 @@
 
         <!-- RocketDock - شريط الروابط السريعة -->
         <div class="rocket-dock" id="rocket-dock">
-            <a href="https://anon-site.github.io/noon.tv/" class="dock-item tv" data-tooltip="موقع نون" title="موقع نون" target="_blank">
+            <a href="https://noon-tv.vercel.app/" class="dock-item tv" data-tooltip="موقع نون" title="موقع نون" target="_blank">
                 <i class="fas fa-tv"></i>
             </a>
             <a href="https://www.youtube.com/" class="dock-item youtube" data-tooltip="يوتيوب" title="يوتيوب" target="_blank">
                 <i class="fab fa-youtube"></i>
             </a>
-            <a href="https://anon-site.github.io/greece/" class="dock-item greece" data-tooltip="الحياة في اليونان" title="الحياة في اليونان" target="_blank">
+            <a href="https://anon-designe.github.io/greece/" class="dock-item greece" data-tooltip="الحياة في اليونان" title="الحياة في اليونان" target="_blank">
                 <i class="fas fa-landmark"></i>
             </a>
-            <a href="https://anon-site.github.io/Work-Manager/index.html" class="dock-item" data-tooltip="Work Manager" title="Work Manager" target="_blank">
+            <a href="https://anon-designe.github.io/Work-Manager/index.html" class="dock-item" data-tooltip="Work Manager" title="Work Manager" target="_blank">
                 <i class="fas fa-briefcase"></i>
             </a>
             <a href="https://graeci-greece.blogspot.com/" class="dock-item" data-tooltip="Graeci Greece" title="Graeci Greece" target="_blank">
                 <i class="fas fa-globe"></i>
             </a>
-            <a href="https://anon-site.github.io/" class="dock-item portfolio" data-tooltip="موقعي" title="موقعي" target="_blank">
+            <a href="https://anon-designe.github.io/" class="dock-item portfolio" data-tooltip="موقعي" title="موقعي" target="_blank">
                 <i class="fas fa-user"></i>
             </a>
         </div>
@@ -1267,7 +1283,7 @@
 
             <div class="search-container">
                 <div class="search-wrapper">
-                <input type="text" id="city-search" placeholder="🔍 ابحث عن مدينتك أو اسمح بالوصول للموقع الحالي" autocomplete="off">
+                <input type="text" id="city-search" placeholder="🔍 مثال: الرياض، السعودية — أو اسمح بالموقع الحالي" autocomplete="off">
                 <button id="search-button" class="search-btn">
                     <i class="fas fa-search" id="search-icon"></i>
                     <div class="spinner" id="search-spinner" style="display: none;"></div>
@@ -1279,6 +1295,7 @@
             </div>
 
             <div class="city-name" id="current-city">أثينا، اليونان</div>
+            <div class="prayer-method-info" id="prayer-method-info"></div>
 
             <div class="prayer-times-container" id="prayer-times">
                 <div class="prayer-card" data-prayer="Fajr" id="card-fajr">
@@ -1310,15 +1327,25 @@
     </section>
 
 
-    <!-- قسم الأذكار والأدعية المحسّن -->
-    <section class="azkar-section">
+    <!-- قسم الأذكار والأدعية -->
+    <section class="azkar-section" id="azkar-section">
         <div class="azkar-container">
-            <h2 class="azkar-title">
-                <span class="title-icon">🕌</span>
-                أذكار وأدعية
-                <span class="title-icon">🕌</span>
-            </h2>
-            
+            <div class="azkar-header">
+                <div class="azkar-header-icon">📿</div>
+                <h2 class="azkar-title">أذكار وأدعية</h2>
+                <p class="azkar-subtitle">اقرأ أذكارك اليومية من السنة النبوية المطهرة</p>
+            </div>
+
+            <div class="azkar-toolbar">
+                <div class="azkar-search-wrap">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="azkar-search" placeholder="ابحث في الأذكار والأدعية..." autocomplete="off">
+                </div>
+                <div class="azkar-stats" id="azkar-stats">
+                    <span class="azkar-stat"><i class="fas fa-list"></i> <span id="azkar-count">0</span> ذكر</span>
+                </div>
+            </div>
+
             <div class="azkar-categories">
                 <button class="category-btn active" data-category="morning">
                     <i class="fas fa-sun"></i>
@@ -1328,30 +1355,36 @@
                     <i class="fas fa-moon"></i>
                     <span>أذكار المساء</span>
                 </button>
+                <button class="category-btn" data-category="afterPrayer">
+                    <i class="fas fa-praying-hands"></i>
+                    <span>بعد الصلاة</span>
+                </button>
                 <button class="category-btn" data-category="home">
                     <i class="fas fa-home"></i>
-                    <span>الخروج من المنزل</span>
+                    <span>الخروج والدخول</span>
+                </button>
+                <button class="category-btn" data-category="sleep">
+                    <i class="fas fa-bed"></i>
+                    <span>قبل النوم</span>
                 </button>
                 <button class="category-btn" data-category="sustenance">
-                    <i class="fas fa-heart"></i>
-                    <span>الرزق والمعيشة</span>
+                    <i class="fas fa-hand-holding-heart"></i>
+                    <span>الرزق والدعاء</span>
                 </button>
                 <button class="category-btn" data-category="general">
-                    <i class="fas fa-star"></i>
+                    <i class="fas fa-mosque"></i>
                     <span>أذكار الأذان</span>
                 </button>
             </div>
-            
-            <div class="azkar-content" id="azkar-content">
-                <!-- سيتم تحميل المحتوى ديناميكياً -->
-            </div>
+
+            <div class="azkar-content" id="azkar-content"></div>
         </div>
     </section>
 
     <!-- تذييل الحقوق -->
     <footer class="footer-credit" aria-label="حقوق">
         © <span id="copyright-year"></span>
-        <a href="https://anon-site.github.io/" target="_blank" rel="noopener">Anon Design</a>
+        <a href="https://anon-designe.github.io/" target="_blank" rel="noopener">Anon Design</a>
     </footer>
 
     <!-- زر الإعدادات العائم -->
@@ -1407,16 +1440,36 @@
         </div>
 
         <div class="settings-group">
+            <label for="calc-auto">دقة مواقيت الصلاة:</label>
+            <div class="dock-setting-item" style="margin-bottom: 10px;">
+                <span><i class="fas fa-magic"></i> اختيار تلقائي حسب البلد</span>
+                <div class="toggle-switch">
+                    <input type="checkbox" id="calc-auto" class="toggle-input" checked>
+                    <label for="calc-auto" class="toggle-label" title="يطبّق الطريقة الرسمية لكل دولة"></label>
+                </div>
+            </div>
             <label for="calc-method">طريقة حساب مواقيت الصلاة:</label>
             <select id="calc-method" class="settings-select">
+                <option value="4">أم القرى — مكة (السعودية / الخليج)</option>
+                <option value="5">الهيئة المصرية العامة للمساحة</option>
+                <option value="13">رئاسة الشؤون الدينية التركية (ديانت)</option>
                 <option value="3">رابطة العالم الإسلامي (MWL)</option>
                 <option value="2">الجمعية الإسلامية لأمريكا الشمالية (ISNA)</option>
-                <option value="13">رئاسة الشؤون الدينية التركية (ديانت)</option>
-                <option value="1">جامعة العلوم الإسلامية - كراتشي</option>
-                <option value="5">الهيئة المصرية العامة للمساحة</option>
-                <option value="4">أم القرى - مكة المكرمة</option>
+                <option value="1">جامعة العلوم الإسلامية — كراتشي</option>
+                <option value="9">الكويت</option>
+                <option value="10">قطر</option>
+                <option value="16">دبي / الإمارات</option>
+                <option value="11">سنغافورة</option>
+                <option value="17">ماليزيا</option>
+                <option value="20">إندonesia</option>
+                <option value="21">المغرب</option>
+                <option value="19">الجزائر</option>
+                <option value="18">تونس</option>
+                <option value="12">فرنسا (UOIF)</option>
+                <option value="14">روسيا</option>
+                <option value="23">الأردن</option>
+                <option value="7">طهران</option>
                 <option value="15">لجنة مراقبة الأهلة العالمية</option>
-                <option value="16">دبي</option>
             </select>
         </div>
 
@@ -1522,132 +1575,323 @@
             padding-bottom: 60px;
         }
 
-        /* قسم الأذكار والأدعية المحسّن */
+        /* قسم الأذكار والأدعية */
         .azkar-section {
-            padding: 40px 15px;
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.1));
+            padding: 50px 15px 60px;
             position: relative;
             z-index: 2;
             margin-top: 20px;
         }
 
+        .azkar-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(76, 175, 80, 0.06) 0%, rgba(0, 0, 0, 0.35) 50%, rgba(255, 193, 7, 0.04) 100%);
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            pointer-events: none;
+        }
+
         .azkar-container {
-            max-width: 1200px;
+            max-width: 1100px;
             margin: 0 auto;
+            position: relative;
+        }
+
+        .azkar-header {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .azkar-header-icon {
+            font-size: 2.5rem;
+            margin-bottom: 8px;
+            filter: drop-shadow(0 0 12px rgba(255, 193, 7, 0.4));
         }
 
         .azkar-title {
-            text-align: center;
             color: var(--secondary-color);
             font-size: 2rem;
-            margin-bottom: 30px;
+            margin: 0 0 8px;
+            font-weight: 700;
+            text-shadow: 0 0 20px rgba(255, 193, 7, 0.25);
+        }
+
+        .azkar-subtitle {
+            color: rgba(255, 255, 255, 0.65);
+            font-size: 0.95rem;
+            margin: 0;
+        }
+
+        .azkar-toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 22px;
+        }
+
+        .azkar-search-wrap {
+            flex: 1;
+            min-width: 220px;
+            position: relative;
+        }
+
+        .azkar-search-wrap i {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.45);
+            font-size: 0.9rem;
+        }
+
+        .azkar-search-wrap input {
+            width: 100%;
+            padding: 12px 42px 12px 16px;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(0, 0, 0, 0.35);
+            color: #fff;
+            font-family: var(--font-arabic);
+            font-size: 0.9rem;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(8px);
+        }
+
+        .azkar-search-wrap input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+        }
+
+        .azkar-search-wrap input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .azkar-stats {
+            display: flex;
+            gap: 10px;
+        }
+
+        .azkar-stat {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 12px;
+            padding: 10px 16px;
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 0.85rem;
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 15px;
-            text-shadow: 0 0 15px rgba(255, 193, 7, 0.3);
+            gap: 8px;
+            white-space: nowrap;
         }
 
-        .title-icon {
-            font-size: 2.5rem;
+        .azkar-stat i {
+            color: var(--primary-color);
         }
-
 
         .azkar-categories {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 30px;
+            gap: 8px;
+            margin-bottom: 24px;
         }
 
         .category-btn {
-            background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 25px;
-            padding: 10px 20px;
-            color: white;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            border-radius: 30px;
+            padding: 9px 16px;
+            color: rgba(255, 255, 255, 0.85);
             cursor: pointer;
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 7px;
             font-family: var(--font-arabic);
-            font-size: 0.9rem;
-            backdrop-filter: blur(5px);
+            font-size: 0.82rem;
+            backdrop-filter: blur(6px);
         }
 
         .category-btn:hover {
-            background: linear-gradient(145deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+            background: rgba(255, 255, 255, 0.12);
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
         }
 
         .category-btn.active {
-            background: linear-gradient(135deg, var(--primary-color), #388E3C);
-            border-color: var(--primary-color);
-            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+            background: linear-gradient(135deg, var(--primary-color), #2e7d32);
+            border-color: rgba(255, 255, 255, 0.25);
+            color: #fff;
+            box-shadow: 0 4px 18px rgba(76, 175, 80, 0.35);
         }
 
         .category-btn i {
-            font-size: 1rem;
+            font-size: 0.9rem;
         }
 
         .azkar-content {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            max-height: 400px;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 16px;
+            max-height: 560px;
             overflow-y: auto;
-            padding: 5px 8px 5px 5px;
+            padding: 8px 6px 8px 4px;
+        }
+
+        .azkar-empty {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 40px 20px;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 1rem;
         }
 
         .azkar-card {
-            background: linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04));
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 15px;
-            padding: 20px;
-            transition: all 0.3s ease;
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.03));
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 18px;
+            padding: 18px 18px 16px;
+            transition: all 0.35s ease;
             position: relative;
             overflow: hidden;
+            backdrop-filter: blur(10px);
         }
 
         .azkar-card::before {
             content: '';
             position: absolute;
             top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-            transform: scaleX(0);
-            transition: transform 0.3s ease;
+            right: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--primary-color), var(--secondary-color));
+            opacity: 0.7;
+        }
+
+        .azkar-card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(76, 175, 80, 0.06) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
         }
 
         .azkar-card:hover {
-            transform: translateY(-3px);
-            background: linear-gradient(145deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.06));
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            transform: translateY(-4px);
+            border-color: rgba(76, 175, 80, 0.35);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3), 0 0 20px rgba(76, 175, 80, 0.08);
         }
 
-        .azkar-card:hover::before {
-            transform: scaleX(1);
+        .azkar-card:hover::after {
+            opacity: 1;
+        }
+
+        .azkar-card-top {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .azkar-number {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-color), #388E3C);
+            color: #fff;
+            font-size: 0.75rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .azkar-repeat {
+            background: rgba(255, 193, 7, 0.15);
+            color: var(--secondary-color);
+            border: 1px solid rgba(255, 193, 7, 0.3);
+            border-radius: 20px;
+            padding: 3px 10px;
+            font-size: 0.72rem;
+            font-weight: 600;
+        }
+
+        .azkar-copy {
+            margin-right: auto;
+            width: 32px;
+            height: 32px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.08);
+            color: rgba(255, 255, 255, 0.7);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.25s ease;
+            padding: 0;
+            box-shadow: none;
+        }
+
+        .azkar-copy:hover {
+            background: var(--primary-color);
+            color: #fff;
+            border-color: var(--primary-color);
+            transform: scale(1.08);
+        }
+
+        .azkar-copy.copied {
+            background: var(--secondary-color);
+            color: #1a1a2e;
+            border-color: var(--secondary-color);
         }
 
         .azkar-text {
             color: #fff;
-            font-size: 1rem;
-            line-height: 1.8;
-            margin-bottom: 10px;
+            font-size: 1.05rem;
+            line-height: 2;
+            margin-bottom: 12px;
             text-align: right;
             font-family: var(--font-arabic);
+            white-space: pre-line;
         }
 
         .azkar-reference {
-            color: var(--secondary-color);
-            font-size: 0.8rem;
+            color: rgba(255, 193, 7, 0.85);
+            font-size: 0.78rem;
             text-align: left;
-            font-style: italic;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding-top: 10px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .azkar-reference i {
+            font-size: 0.7rem;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            .azkar-title { font-size: 1.6rem; }
+            .azkar-content {
+                grid-template-columns: 1fr;
+                max-height: 480px;
+            }
+            .azkar-toolbar { flex-direction: column; align-items: stretch; }
+            .category-btn { font-size: 0.78rem; padding: 8px 12px; }
         }
 
 
@@ -2851,128 +3095,334 @@
         `;
         document.head.appendChild(style);
 
-        // بيانات الأذكار والأدعية
         const azkarData = {
             morning: [
-                { text: "أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ رَبِّ الْعَالَمِينَ، اللَّهُمَّ إِنِّي أَسْأَلُكَ خَيْرَ هَذَا الْيَوْمِ فَتْحَهُ لِي، وَأَعُوذُ بِكَ مِنْ شَرِّ مَا فِيهِ، وَأَعُوذُ بِكَ مِنْ شَرِّ مَا بَعْدَهُ.", reference: "رواه الترمذي" },
-                { text: "اللَّهُمَّ بِكَ أَصْبَحْنَا، وَبِكَ أَمْسَيْنَا، وَبِكَ نَحْيَا، وَبِكَ نَمُوتُ، وَإِلَيْكَ النُّشُورُ.", reference: "رواه الترمذي" },
-                { text: "حَسْبُ اللَّهِ الَّذِي لَا إِلَهَ إِلَّا هُوَ عَلَى نِيَّتِي وَنَفْسِي، فَمَنْ قَالَهَا حِينَ يُصْبِحُ وَحِينَ يُمْسِي كَانَ حَقًّا عَلَيْهِ مِنَ النَّارِ.", reference: "رواه البخاري" },
-                { text: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْهَمِّ وَالْحُزْنِ، وَالْعَجْزِ وَالْكَسَلِ، وَالْبُخْلِ وَالْبَخَلِ، وَمِنْ عَذَابِ الْقَبْرِ.", reference: "رواه البخاري" },
-                { text: "بِسْمِ اللَّهِ الَّذِي لَا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الْأَرْضِ وَلَا فِي السَّمَاءِ، وَهُوَ السَّمِيعُ الْعَلِيمُ.", reference: "رواه الترمذي" }
+                { text: "أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ، لَا إِلَٰهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ.", reference: "رواه مسلم", count: 1 },
+                { text: "اللَّهُمَّ بِكَ أَصْبَحْنَا، وَبِكَ أَمْسَيْنَا، وَبِكَ نَحْيَا، وَبِكَ نَمُوتُ، وَإِلَيْكَ النُّشُورُ.", reference: "رواه الترمذي", count: 1 },
+                { text: "اللَّهُمَّ إِنِّي أَصْبَحْتُ أُشْهِدُكَ وَأُشْهِدُ حَمَلَةَ عَرْشِكَ، وَمَلَائِكَتَكَ وَجَمِيعَ خَلْقِكَ، أَنَّكَ أَنْتَ اللَّهُ لَا إِلَٰهَ إِلَّا أَنْتَ وَحْدَكَ لَا شَرِيكَ لَكَ، وَأَنَّ مُحَمَّدًا عَبْدُكَ وَرَسُولُكَ.", reference: "رواه أبو داود", count: 4 },
+                { text: "اللَّهُمَّ مَا أَصْبَحَ بِي مِنْ نِعْمَةٍ أَوْ بِأَحَدٍ مِنْ خَلْقِكَ فَمِنْكَ وَحْدَكَ لَا شَرِيكَ لَكَ، فَلَكَ الْحَمْدُ وَلَكَ الشُّكْرُ.", reference: "رواه أبو داود", count: 1 },
+                { text: "حَسْبِيَ اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ عَلَيْهِ تَوَكَّلْتُ وَهُوَ رَبُّ الْعَرْشِ الْعَظِيمِ.", reference: "رواه أبو داود — سبع مرات", count: 7 },
+                { text: "أَعُوذُ بِكَلِمَاتِ اللَّهِ التَّامَّاتِ مِنْ شَرِّ مَا خَلَقَ.", reference: "رواه مسلم", count: 3 },
+                { text: "بِسْمِ اللَّهِ الَّذِي لَا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الْأَرْضِ وَلَا فِي السَّمَاءِ وَهُوَ السَّمِيعُ الْعَلِيمُ.", reference: "رواه الترمذي — ثلاث مرات", count: 3 },
+                { text: "رَضِيتُ بِاللَّهِ رَبًّا، وَبِالْإِسْلَامِ دِينًا، وَبِمُحَمَّدٍ ﷺ نَبِيًّا.", reference: "رواه أبو داود — ثلاث مرات", count: 3 },
+                { text: "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ.", reference: "رواه مسلم — مائة مرة", count: 100 },
+                { text: "لَا إِلَٰهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ.", reference: "رواه البخاري — عشر مرات", count: 10 },
+                { text: "اللَّهُمَّ إِنِّي أَسْأَلُكَ عِلْمًا نَافِعًا، وَرِزْقًا طَيِّبًا، وَعَمَلًا مُتَقَبَّلًا.", reference: "رواه ابن السني", count: 1 },
+                { text: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْهَمِّ وَالْحَزَنِ، وَأَعُوذُ بِكَ مِنَ الْعَجْزِ وَالْكَسَلِ، وَأَعُوذُ بِكَ مِنَ الْجُبْنِ وَالْبُخْلِ، وَأَعُوذُ بِكَ مِنْ غَلَبَةِ الدَّيْنِ وَقَهْرِ الرِّجَالِ.", reference: "رواه البخاري", count: 1 },
+                { text: "آيَةُ الْكُرْسِيِّ: ﴿اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ...﴾", reference: "رواه النسائي — حتى تُمسي", count: 1 },
+                { text: "قُلْ هُوَ اللَّهُ أَحَدٌ ﴿١﴾ اللَّهُ الصَّمَدُ ﴿٢﴾ لَمْ يَلِدْ وَلَمْ يُولَدْ ﴿٣﴾ وَلَمْ يَكُنْ لَهُ كُفُوًا أَحَدٌ ﴿٤﴾", reference: "رواه أبو داود — ثلاث مرات", count: 3 },
+                { text: "قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ ﴿١﴾... قُلْ أَعُوذُ بِرَبِّ النَّاسِ ﴿١﴾...", reference: "رواه أبو داود — ثلاث مرات", count: 3 }
             ],
             evening: [
-                { text: "أَمْسَيْنَا وَبِاللَّهِ الْمُسْتَقْبَرُ، وَبِاللَّهِ نَتَوَكَّلُ، وَعَلَيْهِ نَلْتَجِئُ، وَبِهِ نَسْتَغِيثُ.", reference: "رواه الترمذي" },
-                { text: "اللَّهُمَّ إِنِّي أَمْسَيْتُ بِكَ خَيْرًا، فَلَا تَسْلِبْنِي خَيْرِي، وَأَمْسَيْتُ بِكَ شَرًّا، فَلَا تُسَلِّطْهُ عَلَيَّ.", reference: "رواه مسلم" },
-                { text: "يَا رَبِّ، لَكَ الْحَمْدُ كَمَا يَنْبَغِي لِجَلَالِ وَجْهِكَ، وَلِعَظِيمِكَ وَجَلَالِ كَمْ يَنْبَغِي.", reference: "رواه مسلم" },
-                { text: "اللَّهُمَّ اغْفِرْ لِي ذَنْبِي كُلَّهُ، قَلِيلَهُ وَكَثِيرَهُ، أَوَّلَهُ وَآخِرَهُ، عَلَانِيَتِهِ وَسِرِّهِ.", reference: "رواه مسلم" },
-                { text: "اللَّهُمَّ قِنِي عَذَابَكَ يَوْمَ تَبْعَثُ عِبَادَكَ، وَرِضْ عَنِّي عَلَى مَا أَسْرَفْتُ عَلَى نَفْسِي.", reference: "رواه الترمذي" }
+                { text: "أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ، لَا إِلَٰهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ.", reference: "رواه مسلم", count: 1 },
+                { text: "اللَّهُمَّ بِكَ أَمْسَيْنَا، وَبِكَ أَصْبَحْنَا، وَبِكَ نَحْيَا، وَبِكَ نَمُوتُ، وَإِلَيْكَ الْمَصِيرُ.", reference: "رواه الترمذي", count: 1 },
+                { text: "اللَّهُمَّ إِنِّي أَمْسَيْتُ أُشْهِدُكَ وَأُشْهِدُ حَمَلَةَ عَرْشِكَ، وَمَلَائِكَتَكَ وَجَمِيعَ خَلْقِكَ، أَنَّكَ أَنْتَ اللَّهُ لَا إِلَٰهَ إِلَّا أَنْتَ وَحْدَكَ لَا شَرِيكَ لَكَ، وَأَنَّ مُحَمَّدًا عَبْدُكَ وَرَسُولُكَ.", reference: "رواه أبو داود", count: 4 },
+                { text: "اللَّهُمَّ مَا أَمْسَى بِي مِنْ نِعْمَةٍ أَوْ بِأَحَدٍ مِنْ خَلْقِكَ فَمِنْكَ وَحْدَكَ لَا شَرِيكَ لَكَ، فَلَكَ الْحَمْدُ وَلَكَ الشُّكْرُ.", reference: "رواه أبو داود", count: 1 },
+                { text: "حَسْبِيَ اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ عَلَيْهِ تَوَكَّلْتُ وَهُوَ رَبُّ الْعَرْشِ الْعَظِيمِ.", reference: "رواه أبو داود — سبع مرات", count: 7 },
+                { text: "أَعُوذُ بِكَلِمَاتِ اللَّهِ التَّامَّاتِ مِنْ شَرِّ مَا خَلَقَ.", reference: "رواه مسلم", count: 3 },
+                { text: "بِسْمِ اللَّهِ الَّذِي لَا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الْأَرْضِ وَلَا فِي السَّمَاءِ وَهُوَ السَّمِيعُ الْعَلِيمُ.", reference: "رواه الترمذي — ثلاث مرات", count: 3 },
+                { text: "رَضِيتُ بِاللَّهِ رَبًّا، وَبِالْإِسْلَامِ دِينًا، وَبِمُحَمَّدٍ ﷺ نَبِيًّا.", reference: "رواه أبو داود — ثلاث مرات", count: 3 },
+                { text: "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ.", reference: "رواه مسلم — مائة مرة", count: 100 },
+                { text: "اللَّهُمَّ إِنِّي أَسْأَلُكَ خَيْرَ هَذِهِ اللَّيْلَةِ، وَأَعُوذُ بِكَ مِنْ شَرِّ هَذِهِ اللَّيْلَةِ وَشَرِّ مَا بَعْدَهَا.", reference: "رواه ابن حبان", count: 1 },
+                { text: "آيَةُ الْكُرْسِيِّ: ﴿اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ...﴾", reference: "رواه النسائي — حتى تصبح", count: 1 },
+                { text: "قُلْ هُوَ اللَّهُ أَحَدٌ... قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ... قُلْ أَعُوذُ بِرَبِّ النَّاسِ...", reference: "رواه أبو داود — ثلاث مرات", count: 3 }
+            ],
+            afterPrayer: [
+                { text: "أَسْتَغْفِرُ اللَّهَ.", reference: "رواه مسلم — ثلاث مرات", count: 3 },
+                { text: "اللَّهُمَّ أَنْتَ السَّلَامُ وَمِنْكَ السَّلَامُ، تَبَارَكْتَ يَا ذَا الْجَلَالِ وَالْإِكْرَامِ.", reference: "رواه مسلم", count: 1 },
+                { text: "لَا إِلَٰهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ.", reference: "رواه مسلم — بعد كل صلاة", count: 1 },
+                { text: "اللَّهُمَّ لَا مَانِعَ لِمَا أَعْطَيْتَ، وَلَا مُعْطِيَ لِمَا مَنَعْتَ، وَلَا يَنْفَعُ ذَا الْجَدِّ مِنْكَ الْجَدُّ.", reference: "رواه البخاري ومسلم", count: 1 },
+                { text: "لَا إِلَٰهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ، يُحْيِي وَيُمِيتُ، وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ.", reference: "رواه البخاري — عشر مرات بعد المغرب والفجر", count: 10 },
+                { text: "سُبْحَانَ اللَّهِ.", reference: "رواه مسلم — ثلاثاً وثلاثين", count: 33 },
+                { text: "الْحَمْدُ لِلَّهِ.", reference: "رواه مسلم — ثلاثاً وثلاثين", count: 33 },
+                { text: "اللَّهُ أَكْبَرُ.", reference: "رواه مسلم — ثلاثاً وثلاثين", count: 33 },
+                { text: "لَا إِلَٰهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ.", reference: "رواه مسلم — ختم المائة", count: 1 },
+                { text: "اللَّهُمَّ أَعِنِّي عَلَى ذِكْرِكَ وَشُكْرِكَ وَحُسْنِ عِبَادَتِكَ.", reference: "رواه أبو داود والنسائي", count: 1 }
             ],
             home: [
-                { text: "بِسْمِ اللَّهِ تَوَكَّلْتُ عَلَى اللَّهِ، لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ، بِسْمِ اللَّهِ وَصَلَّى اللَّهُ عَلَى رَسُولِ اللَّهِ.", reference: "رواه الترمذي" },
-                { text: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ أَنْ أَضِلَّ أَوْ أُضَلَّ، أَوْ أَزِلَّ أَوْ أُزَلَّ، أَوْ أَظْلِمَ أَوْ أُظْلَمَ، أَوْ أَسْجُبَ أَوْ أُسْجَبَ.", reference: "رواه مسلم" },
-                { text: "اللَّهُمَّ أَجِرْنِي فِي سَفَرِي، وَطَوِّعْ لِي فِيهِ طَاعِيَةً، وَسَيِّرْ لِي فِيهِ خَيْرًا.", reference: "رواه مسلم" },
-                { text: "اللَّهُمَّ أَعِذْنِي مِنْ عَذَابِ النَّارِ، وَمِنْ عَذَابِ الْقَبْرِ، وَمِنْ فِتَنَةِ الْمَحْيَا وَالْمَمَاتِ.", reference: "رواه مسلم" }
+                { text: "بِسْمِ اللَّهِ، تَوَكَّلْتُ عَلَى اللَّهِ، وَلَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ.", reference: "رواه الترمذي — عند الخروج", count: 1 },
+                { text: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ أَنْ أَضِلَّ أَوْ أُضَلَّ، أَوْ أَزِلَّ أَوْ أُزَلَّ، أَوْ أَظْلِمَ أَوْ أُظْلَمَ، أَوْ أَجْهَلَ أَوْ يُجْهَلَ عَلَيَّ.", reference: "رواه أبو داود — عند الخروج", count: 1 },
+                { text: "اللَّهُمَّ إِنِّي أَسْأَلُكَ خَيْرَ هَذِهِ الْقَرْيَةِ وَخَيْرَ أَهْلِهَا، وَأَعُوذُ بِكَ مِنْ شَرِّهَا وَشَرِّ أَهْلِهَا.", reference: "رواه مسلم — عند دخول قرية", count: 1 },
+                { text: "بِسْمِ اللَّهِ وَلَجْنَا، وَبِسْمِ اللَّهِ خَرَجْنَا، وَعَلَى اللَّهِ رَبِّنَا تَوَكَّلْنَا.", reference: "رواه أبو داود — عند دخول المنزل", count: 1 },
+                { text: "اللَّهُمَّ إِنِّي أَسْأَلُكَ خَيْرَ الْمَوْلِجِ وَخَيْرَ الْمَخْرَجِ، بِسْمِ اللَّهِ وَلَجْنَا، وَبِسْمِ اللَّهِ خَرَجْنَا، وَعَلَى اللَّهِ رَبِّنَا تَوَكَّلْنَا.", reference: "رواه أبو داود — عند دخول المسجد", count: 1 },
+                { text: "اللَّهُمَّ افْتَحْ لِي أَبْوَابَ رَحْمَتِكَ.", reference: "رواه مسلم — عند دخول المسجد", count: 1 },
+                { text: "اللَّهُمَّ إِنِّي أَسْأَلُكَ مِنْ فَضْلِكَ.", reference: "رواه مسلم — عند الخروج من المسجد", count: 1 },
+                { text: "اللَّهُمَّ اجْعَلْ فِي قَلْبِي نُورًا، وَفِي لِسَانِي نُورًا، وَاجْعَلْ فِي سَمْعِي نُورًا، وَاجْعَلْ فِي بَصَرِي نُورًا.", reference: "رواه البخاري", count: 1 }
+            ],
+            sleep: [
+                { text: "بِاسْمِكَ اللَّهُمَّ أَمُوتُ وَأَحْيَا.", reference: "رواه البخاري", count: 1 },
+                { text: "اللَّهُمَّ قِنِي عَذَابَكَ يَوْمَ تَبْعَثُ عِبَادَكَ.", reference: "رواه الترمذي — ثلاث مرات", count: 3 },
+                { text: "الْحَمْدُ لِلَّهِ الَّذِي أَطْعَمَنَا وَسَقَانَا، وَكَفَانَا وَآوَانَا، فَكَمْ مِمَّنْ لَا كَافِيَ لَهُ وَلَا مُؤْوِيَ.", reference: "رواه مسلم", count: 1 },
+                { text: "آيَةُ الْكُرْسِيِّ: ﴿اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ...﴾", reference: "رواه البخاري — حافظ من الشيطان", count: 1 },
+                { text: "قُلْ هُوَ اللَّهُ أَحَدٌ ﴿١﴾ اللَّهُ الصَّمَدُ ﴿٢﴾ لَمْ يَلِدْ وَلَمْ يُولَدْ ﴿٣﴾ وَلَمْ يَكُنْ لَهُ كُفُوًا أَحَدٌ ﴿٤﴾", reference: "رواه البخاري — ثلاث مرات", count: 3 },
+                { text: "قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ... قُلْ أَعُوذُ بِرَبِّ النَّاسِ...", reference: "رواه البخاري — ثلاث مرات", count: 3 },
+                { text: "اللَّهُمَّ أَسْلَمْتُ نَفْسِي إِلَيْكَ، وَفَوَّضْتُ أَمْرِي إِلَيْكَ، وَوَجَّهْتُ وَجْهِي إِلَيْكَ، وَأَلْجَأْتُ ظَهْرِي إِلَيْكَ، رَغْبَةً وَرَهْبَةً إِلَيْكَ، لَا مَلْجَأَ وَلَا مَنْجَا مِنْكَ إِلَّا إِلَيْكَ.", reference: "رواه البخاري", count: 1 },
+                { text: "سُبْحَانَ اللَّهِ.", reference: "رواه البخاري — ثلاثاً وثلاثين", count: 33 },
+                { text: "الْحَمْدُ لِلَّهِ.", reference: "رواه البخاري — ثلاثاً وثلاثين", count: 33 },
+                { text: "اللَّهُ أَكْبَرُ.", reference: "رواه البخاري — أربعاً وثلاثين", count: 34 }
             ],
             sustenance: [
-                { text: "اللهم إني أسألك بأنك أنت الله لا إله إلا انت الأحد الصمد الذي لم يلد ولم يولد ولم يكن له كفوا أحد أن ترني عجائب قدرتك في تيسير أموري\nاللهم سخر لي من في الارض ومن عليها والسماء ومن فيها وعبادك الصالحين وكل من وليته أمري", reference: "دعاء" }
+                { text: "اللَّهُمَّ إِنِّي أَسْأَلُكَ مِنْ فَضْلِكَ وَرَحْمَتِكَ، فَإِنَّهُ لَا يَمْلِكُهَا إِلَّا أَنْتَ.", reference: "رواه مسلم", count: 1 },
+                { text: "اللَّهُمَّ اكْفِنِي بِحَلَالِكَ عَنْ حَرَامِكَ، وَأَغْنِنِي بِفَضْلِكَ عَمَّنْ سِوَاكَ.", reference: "رواه الترمذي", count: 1 },
+                { text: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْفَقْرِ، وَالْقِلَّةِ، وَالذِّلَّةِ، وَأَعُوذُ بِكَ مِنْ أَنْ أَظْلِمَ أَوْ أُظْلَمَ.", reference: "رواه أبو داود", count: 1 },
+                { text: "يَا حَيُّ يَا قَيُّومُ بِرَحْمَتِكَ أَسْتَغِيثُ، أَصْلِحْ لِي شَأْنِي كُلَّهُ، وَلَا تَكِلْنِي إِلَى نَفْسِي طَرْفَةَ عَيْنٍ.", reference: "رواه الحاكم", count: 1 },
+                { text: "رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ.", reference: "القرآن الكريم — سورة البقرة", count: 1 },
+                { text: "رَبِّ إِنِّي لِمَا أَنْزَلْتَ إِلَيَّ مِنْ خَيْرٍ فَقِيرٌ.", reference: "القرآن الكريم — دعاء سيدنا موسى", count: 1 },
+                { text: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْهُدَى، وَالتُّقَى، وَالْعَفَافَ، وَالْغِنَى.", reference: "رواه مسلم", count: 1 },
+                { text: "اللَّهُمَّ بَارِكْ لَنَا فِيمَا رَزَقْتَنَا، وَقِنَا عَذَابَ النَّارِ.", reference: "دعاء", count: 1 }
             ],
             general: [
-                { text: "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ، سُبْحَانَ اللَّهِ الْعَظِيمِ.", reference: "رواه البخاري" },
-                { text: "اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ، كَمَا صَلَّيْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ، إِنَّكَ حَمِيدٌ مَجِيدٌ.", reference: "رواه البخاري" },
-                { text: "رَبَّنَا اللَّهُ الَّذِي فِي السَّمَاءِ تَقَدَّسُ اسْمُكَ، فِي الْأَرْضِ رَحْمَتُكَ، وَفِي الْبَحْرِ حُكْمُكَ.", reference: "رواه مسلم" },
-                { text: "اللَّهُمَّ اغْفِرْ لِلْمُؤْمِنِينَ وَالْمُؤْمِنَاتِ، وَالْمُسْلِمِينَ وَالْمُسْلِمَاتِ، الْأَحْيَاءِ مِنْهُمْ وَالْأَمْوَاتِ.", reference: "رواه مسلم" },
-                { text: "اللَّهُمَّ أَصْلِحْ لِي دِينِيَ الَّذِي هُوَ عِصْمَةُ أَمْرِي، وَأَصْلِحْ لِي دُنْيَايَ الَّتِي فِيهَا مَعَاشِي.", reference: "رواه مسلم" },
-                { text: "اللَّهُمَّ إِنِّي أَسْأَلُكَ حُسْنَ الْخَاتِمَةِ، وَالْجَنَّةَ مِنْ غَيْرِ عَذَابٍ وَلَا مُحَاسَبَةٍ.", reference: "رواه الحاكم" },
-                { text: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ شَرِّ فِتْنَةِ الْمَسِيحِ الدَّجَّالِ.", reference: "رواه مسلم" },
-                { text: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْجَنَّةَ وَأَعُوذُ بِكَ مِنَ النَّارِ.", reference: "رواه ابن ماجه" },
-                { text: "اللَّهُمَّ بَارِكْ لِي فِي سَمْعِي وَبَصَرِي وَقَلْبِي وَنَفْسِي وَذُرِّيَّتِي.", reference: "رواه مسلم" },
-                { text: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْعَفْوَ وَالْعَافِيَةَ فِي الدُّنْيَا وَالْآخِرَةِ.", reference: "رواه الترمذي" }
+                { text: "اللَّهُمَّ رَبَّ هَذِهِ الدَّعْوَةِ التَّامَّةِ، وَالصَّلَاةِ الْقَائِمَةِ، آتِ مُحَمَّدًا الْوَسِيلَةَ وَالْفَضِيلَةَ، وَابْعَثْهُ مَقَامًا مَحْمُودًا الَّذِي وَعَدْتَهُ.", reference: "رواه البخاري — بعد الأذان", count: 1 },
+                { text: "لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ.", reference: "رواه البخاري — عند سماع الأذان", count: 1 },
+                { text: "وَأَنَا أَشْهَدُ أَنْ لَا إِلَٰهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، وَأَنَّ مُحَمَّدًا عَبْدُهُ وَرَسُولُهُ، رَضِيتُ بِاللَّهِ رَبًّا، وَبِمُحَمَّدٍ رَسُولًا، وَبِالْإِسْلَامِ دِينًا.", reference: "رواه مسلم — بعد الأذان", count: 1 },
+                { text: "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ، سُبْحَانَ اللَّهِ الْعَظِيمِ.", reference: "رواه البخاري", count: 1 },
+                { text: "اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ، كَمَا صَلَّيْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ، إِنَّكَ حَمِيدٌ مَجِيدٌ.", reference: "رواه البخاري", count: 1 },
+                { text: "اللَّهُمَّ اغْفِرْ لِي ذَنْبِي كُلَّهُ، دِقَّهُ وَجِلَّهُ، وَأَوَّلَهُ وَآخِرَهُ، وَعَلَانِيَتَهُ وَسِرَّهُ.", reference: "رواه مسلم", count: 1 },
+                { text: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْعَفْوَ وَالْعَافِيَةَ فِي الدُّنْيَا وَالْآخِرَةِ.", reference: "رواه الترمذي", count: 1 },
+                { text: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ شَرِّ فِتْنَةِ الْمَسِيحِ الدَّجَّالِ.", reference: "رواه مسلم", count: 1 },
+                { text: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْجَنَّةَ وَأَعُوذُ بِكَ مِنَ النَّارِ.", reference: "رواه ابن ماجه", count: 1 },
+                { text: "اللَّهُمَّ أَصْلِحْ لِي دِينِيَ الَّذِي هُوَ عِصْمَةُ أَمْرِي، وَأَصْلِحْ لِي دُنْيَايَ الَّتِي فِيهَا مَعَاشِي، وَأَصْلِحْ لِي آخِرَتِي الَّتِي فِيهَا مَعَادِي.", reference: "رواه مسلم", count: 1 },
+                { text: "اللَّهُمَّ اغْفِرْ لِلْمُؤْمِنِينَ وَالْمُؤْمِنَاتِ، وَالْمُسْلِمِينَ وَالْمُسْلِمَاتِ.", reference: "رواه مسلم", count: 1 },
+                { text: "رَبَّنَا ظَلَمْنَا أَنْفُسَنَا وَإِنْ لَمْ تَغْفِرْ لَنَا وَتَرْحَمْنَا لَنَكُونَنَّ مِنَ الْخَاسِرِينَ.", reference: "القرآن الكريم — سورة الأعراف", count: 1 }
             ]
         };
 
-        // دالة تحميل الأذكار
-        function loadAzkar(category = 'morning') {
-            const content = document.getElementById('azkar-content');
-            if (!content) return;
-            
-            const azkar = azkarData[category] || azkarData.morning;
-            
-            content.innerHTML = '';
-            
-            azkar.forEach((item, index) => {
-                const card = document.createElement('div');
-                card.className = 'azkar-card';
-                card.innerHTML = `
-                    <div class="azkar-text">${item.text}</div>
-                    <div class="azkar-reference">${item.reference}</div>
-                `;
-                
-                // إضافة تأثير ظهور تدريجي
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(20px)';
-                content.appendChild(card);
-                
+        let currentAzkarCategory = 'morning';
+        let azkarSearchQuery = '';
+
+        function copyAzkarText(text, btn) {
+            navigator.clipboard.writeText(text).then(() => {
+                btn.classList.add('copied');
+                btn.innerHTML = '<i class="fas fa-check"></i>';
                 setTimeout(() => {
-                    card.style.transition = 'all 0.3s ease';
-                    card.style.opacity = '1';
-                    card.style.transform = 'translateY(0)';
-                }, index * 100);
+                    btn.classList.remove('copied');
+                    btn.innerHTML = '<i class="fas fa-copy"></i>';
+                }, 1800);
+            }).catch(() => {
+                const ta = document.createElement('textarea');
+                ta.value = text;
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+                btn.classList.add('copied');
+                btn.innerHTML = '<i class="fas fa-check"></i>';
+                setTimeout(() => {
+                    btn.classList.remove('copied');
+                    btn.innerHTML = '<i class="fas fa-copy"></i>';
+                }, 1800);
             });
         }
 
-        // معالج النقر على أزرار التصنيفات
+        function loadAzkar(category, searchQuery) {
+            if (category) currentAzkarCategory = category;
+            if (searchQuery !== undefined) azkarSearchQuery = searchQuery;
+
+            const content = document.getElementById('azkar-content');
+            const countEl = document.getElementById('azkar-count');
+            if (!content) return;
+
+            let azkar = azkarData[currentAzkarCategory] || azkarData.morning;
+
+            if (azkarSearchQuery.trim()) {
+                const q = azkarSearchQuery.trim();
+                azkar = azkar.filter(item =>
+                    item.text.includes(q) || item.reference.includes(q)
+                );
+            }
+
+            if (countEl) countEl.textContent = azkar.length;
+            content.innerHTML = '';
+
+            if (azkar.length === 0) {
+                content.innerHTML = '<div class="azkar-empty"><i class="fas fa-search"></i> لا توجد نتائج للبحث</div>';
+                return;
+            }
+
+            azkar.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = 'azkar-card';
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(16px)';
+
+                const repeatBadge = item.count && item.count > 1
+                    ? `<span class="azkar-repeat">×${item.count}</span>` : '';
+
+                card.innerHTML = `
+                    <div class="azkar-card-top">
+                        <span class="azkar-number">${index + 1}</span>
+                        ${repeatBadge}
+                        <button type="button" class="azkar-copy" title="نسخ الذكر"><i class="fas fa-copy"></i></button>
+                    </div>
+                    <div class="azkar-text">${item.text}</div>
+                    <div class="azkar-reference"><i class="fas fa-book-open"></i> ${item.reference}</div>
+                `;
+
+                card.querySelector('.azkar-copy').addEventListener('click', function() {
+                    copyAzkarText(item.text, this);
+                });
+
+                content.appendChild(card);
+
+                setTimeout(() => {
+                    card.style.transition = 'all 0.35s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 60);
+            });
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             const categoryBtns = document.querySelectorAll('.category-btn');
-            
+            const searchInput = document.getElementById('azkar-search');
+
             categoryBtns.forEach(btn => {
                 btn.addEventListener('click', function() {
-                    // إزالة الكلاس النشط من جميع الأزرار
                     categoryBtns.forEach(b => b.classList.remove('active'));
-                    
-                    // إضافة الكلاس النشط للزر المضغوط عليه
                     this.classList.add('active');
-                    
-                    // تحميل الأذكار للتصنيف المختار
-                    const category = this.getAttribute('data-category');
-                    loadAzkar(category);
+                    loadAzkar(this.getAttribute('data-category'), '');
+                    if (searchInput) searchInput.value = '';
                 });
             });
-            
-            // تحميل الأذكار الافتراضية (أذكار الصباح)
-            setTimeout(() => loadAzkar('morning'), 500);
+
+            if (searchInput) {
+                searchInput.addEventListener('input', function() {
+                    loadAzkar(null, this.value);
+                });
+            }
+
+            setTimeout(() => loadAzkar('morning'), 400);
         });
 
-        let currentCity = "Athens, Greece";
+        // ── مواقيت الصلاة — دقة عالية ──
+        let currentCity = "أثينا، اليونان";
         let defaultLatitude = 37.9838;
         let defaultLongitude = 23.7275;
+        let currentCountryCode = 'GR';
         let prayerTimesData = {};
         let userLocation = null;
         let locationDetectionEnabled = true;
+        let calcAutoMode = localStorage.getItem('islam-calc-auto') !== 'false';
+
         const PRAYER_NAMES_AR = {
-            Fajr: "الفجر",
-            Sunrise: "الشروق",
-            Dhuhr: "الظهر",
-            Asr: "العصر",
-            Maghrib: "المغرب",
-            Isha: "العشاء"
+            Fajr: "الفجر", Sunrise: "الشروق", Dhuhr: "الظهر",
+            Asr: "العصر", Maghrib: "المغرب", Isha: "العشاء"
         };
         const PRAYER_ORDER = ["Fajr", "Sunrise", "Dhuhr", "Asr", "Maghrib", "Isha"];
 
-        // إعدادات حساب مواقيت الصلاة (افتراضيات مناسبة لأوروبا)
-        let calculationMethod = 13; // Turkey (Diyanet) - أفضل لليونان وأوروبا
-        let schoolMethod = 0;       // Shafi/Maliki/Hanbali (مثل الظل)
+        const CALC_METHOD_NAMES = {
+            1: 'كراتشي', 2: 'ISNA', 3: 'رابطة العالم الإسلامي', 4: 'أم القرى',
+            5: 'مصر', 7: 'طهران', 9: 'الكويت', 10: 'قطر', 11: 'سنغافورة',
+            12: 'فرنسا', 13: 'تركيا (ديانت)', 14: 'روسيا', 15: 'مراقبة الأهلة',
+            16: 'دبي', 17: 'ماليزيا', 18: 'تونس', 19: 'الجزائر', 20: 'إندonesia',
+            21: 'المغرب', 23: 'الأردن'
+        };
+
+        const COUNTRY_METHOD_MAP = {
+            SA: 4, YE: 4, BH: 4, OM: 4,
+            AE: 16, QA: 10, KW: 9,
+            EG: 5, SD: 5, LY: 5, SO: 5,
+            TR: 13, GR: 13, CY: 13, AL: 13, MK: 13, BA: 13, RS: 13,
+            BG: 13, RO: 13, XK: 13, ME: 13,
+            US: 2, CA: 2, MX: 2,
+            PK: 1, AF: 1,
+            BD: 1, IN: 1,
+            IR: 7,
+            MY: 17, ID: 20, SG: 11, BN: 11,
+            MA: 21, DZ: 19, TN: 18, MR: 21,
+            JO: 23, PS: 23, LB: 5, SY: 5, IQ: 5,
+            FR: 12, BE: 12,
+            RU: 14, BY: 14, KZ: 14, UZ: 14, TM: 14, KG: 14, TJ: 14, AZ: 14,
+            NL: 3, DE: 3, GB: 3, IT: 3, ES: 3, PT: 3, SE: 3, NO: 3, DK: 3,
+            FI: 3, AT: 3, CH: 3, PL: 3, CZ: 3, HU: 3, IE: 3, LU: 3,
+            AU: 3, NZ: 3, ZA: 3, NG: 3, KE: 3, SN: 3, ET: 3, TZ: 3,
+            CN: 3, JP: 3, KR: 3, TH: 3, PH: 3, VN: 3
+        };
+
+        const HANAFI_COUNTRY_CODES = new Set(['PK', 'BD', 'IN', 'AF', 'AZ', 'TJ', 'UZ', 'TM', 'KG', 'KZ']);
+
+        let calculationMethod = 13;
+        let schoolMethod = 0;
+
+        function getActiveCalcMethod() {
+            if (calcAutoMode && currentCountryCode && COUNTRY_METHOD_MAP[currentCountryCode]) {
+                return COUNTRY_METHOD_MAP[currentCountryCode];
+            }
+            return calculationMethod;
+        }
+
+        function getActiveSchool() {
+            if (calcAutoMode && HANAFI_COUNTRY_CODES.has(currentCountryCode)) return 1;
+            return schoolMethod;
+        }
+
+        function getLatitudeAdjustmentMethod(lat) {
+            const abs = Math.abs(lat);
+            if (abs >= 55) return 3;
+            if (abs >= 48) return 2;
+            return null;
+        }
+
+        function buildTimingsQuery(lat, lon) {
+            const method = getActiveCalcMethod();
+            const school = getActiveSchool();
+            let q = `latitude=${lat}&longitude=${lon}&method=${method}&school=${school}&adjustment=0`;
+            const latAdj = getLatitudeAdjustmentMethod(lat);
+            if (latAdj) q += `&latitudeAdjustmentMethod=${latAdj}`;
+            return q;
+        }
+
+        function applyAutoPrayerSettings(countryCode) {
+            if (!calcAutoMode) return;
+            if (countryCode && COUNTRY_METHOD_MAP[countryCode]) {
+                calculationMethod = COUNTRY_METHOD_MAP[countryCode];
+            }
+            schoolMethod = HANAFI_COUNTRY_CODES.has(countryCode) ? 1 : 0;
+            applyCalculationSettings();
+        }
+
+        function updateMethodInfoDisplay() {
+            const el = document.getElementById('prayer-method-info');
+            if (!el) return;
+            const mId = getActiveCalcMethod();
+            const methodName = CALC_METHOD_NAMES[mId] || `طريقة ${mId}`;
+            const schoolName = getActiveSchool() === 1 ? 'حنفي' : 'شافعي';
+            const mode = calcAutoMode
+                ? '<i class="fas fa-magic"></i> تلقائي'
+                : '<i class="fas fa-sliders-h"></i> يدوي';
+            const highLat = Math.abs(defaultLatitude) >= 48
+                ? ' · <i class="fas fa-snowflake"></i> مناطق عالية العرض'
+                : '';
+            el.innerHTML = `${mode} · ${methodName} · مذهب ${schoolName}${highLat}`;
+        }
+
+        function updateCalcMethodUiState() {
+            const methodSelect = document.getElementById('calc-method');
+            const schoolSelect = document.getElementById('school-method');
+            [methodSelect, schoolSelect].forEach(el => {
+                if (!el) return;
+                el.disabled = calcAutoMode;
+                el.style.opacity = calcAutoMode ? '0.55' : '1';
+            });
+        }
 
         function loadCalculationSettings() {
             const savedMethod = localStorage.getItem('islam-calc-method');
             const savedSchool = localStorage.getItem('islam-school-method');
-            if (savedMethod !== null) calculationMethod = parseInt(savedMethod);
-            if (savedSchool !== null) schoolMethod = parseInt(savedSchool);
+            const savedAuto = localStorage.getItem('islam-calc-auto');
+            if (savedMethod !== null) calculationMethod = parseInt(savedMethod, 10);
+            if (savedSchool !== null) schoolMethod = parseInt(savedSchool, 10);
+            if (savedAuto !== null) calcAutoMode = savedAuto !== 'false';
+            const autoToggle = document.getElementById('calc-auto');
+            if (autoToggle) autoToggle.checked = calcAutoMode;
             applyCalculationSettings();
+            updateCalcMethodUiState();
         }
 
         function saveCalculationSettings() {
             localStorage.setItem('islam-calc-method', calculationMethod);
             localStorage.setItem('islam-school-method', schoolMethod);
+            localStorage.setItem('islam-calc-auto', calcAutoMode ? 'true' : 'false');
         }
 
         function applyCalculationSettings() {
@@ -2980,6 +3430,73 @@
             const schoolSelect = document.getElementById('school-method');
             if (methodSelect) methodSelect.value = String(calculationMethod);
             if (schoolSelect) schoolSelect.value = String(schoolMethod);
+        }
+
+        function saveLocationData(city, lat, lon, countryCode) {
+            localStorage.setItem('islam-saved-city', city);
+            localStorage.setItem('islam-saved-lat', lat.toString());
+            localStorage.setItem('islam-saved-lon', lon.toString());
+            if (countryCode) localStorage.setItem('islam-saved-country', countryCode);
+        }
+
+        async function fetchTimingsByCoords(lat, lon, date) {
+            const dd = date.getDate();
+            const mm = date.getMonth() + 1;
+            const yyyy = date.getFullYear();
+            const dateStr = `${String(dd).padStart(2, '0')}-${String(mm).padStart(2, '0')}-${yyyy}`;
+            const q = buildTimingsQuery(lat, lon);
+            const url = `https://api.aladhan.com/v1/timings/${dateStr}?${q}`;
+
+            const response = await fetch(url);
+            const data = await response.json();
+            if (data.code === 200 && data.data?.timings) {
+                return { timings: data.data.timings, meta: data.data.meta };
+            }
+
+            if (currentCity) {
+                const addrUrl = `https://api.aladhan.com/v1/timingsByAddress?address=${encodeURIComponent(currentCity)}&method=${getActiveCalcMethod()}&school=${getActiveSchool()}&adjustment=0`;
+                const addrResp = await fetch(addrUrl);
+                const addrData = await addrResp.json();
+                if (addrData.code === 200 && addrData.data?.timings) {
+                    return { timings: addrData.data.timings, meta: addrData.data.meta };
+                }
+            }
+
+            throw new Error(data.status || 'تعذّر جلب المواقيت');
+        }
+
+        async function geocodeCity(query) {
+            const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query)}&format=json&limit=5&accept-language=ar,en&addressdetails=1`;
+            const response = await fetch(url);
+            const results = await response.json();
+            if (!results || results.length === 0) return null;
+
+            const best = results[0];
+            const addr = best.address || {};
+            const city = addr.city || addr.town || addr.village || addr.municipality || addr.state || best.name;
+            const country = addr.country || '';
+            const countryCode = (addr.country_code || '').toUpperCase();
+            const displayCity = country ? `${city}، ${country}` : city;
+
+            return {
+                lat: parseFloat(best.lat),
+                lon: parseFloat(best.lon),
+                displayCity,
+                countryCode
+            };
+        }
+
+        async function reverseGeocode(lat, lon) {
+            const response = await fetch(
+                `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&accept-language=ar&addressdetails=1`
+            );
+            const data = await response.json();
+            const addr = data.address || {};
+            const city = addr.city || addr.town || addr.village || addr.municipality || 'موقعك';
+            const country = addr.country || '';
+            const countryCode = (addr.country_code || '').toUpperCase();
+            const displayCity = country ? `${city}، ${country}` : city;
+            return { displayCity, countryCode };
         }
 
         // **1. وظائف الساعة والتاريخ**
@@ -3023,56 +3540,51 @@
                 });
         }
 
-        // **2. وظيفة جلب مواقيت الصلاة وتحديثها في الواجهة (محسّنة)**
-        async function getPrayerTimes(latitude, longitude, cityDisplay) {
+        // **2. جلب مواقيت الصلاة بالإحداثيات (أدق)**
+        async function getPrayerTimes(latitude, longitude, cityDisplay, countryCode) {
+            if (countryCode) currentCountryCode = countryCode;
+            applyAutoPrayerSettings(currentCountryCode);
+
             document.getElementById('current-city').textContent = cityDisplay || 'جاري التحميل...';
             document.querySelectorAll('.prayer-time').forEach(el => el.textContent = '--:--');
+            updateMethodInfoDisplay();
 
             const date = new Date();
             const day = date.getDate();
             const month = date.getMonth() + 1;
             const year = date.getFullYear();
-
-            // استخدام طريقة الحساب والمذهب المختارين من الإعدادات
-            const url = `https://api.aladhan.com/v1/calendar/${year}/${month}?latitude=${latitude}&longitude=${longitude}&method=${calculationMethod}&school=${schoolMethod}&adjustment=1`;
+            const q = buildTimingsQuery(latitude, longitude);
 
             try {
-                const response = await fetch(url);
-                const data = await response.json();
+                const { timings, meta } = await fetchTimingsByCoords(latitude, longitude, date);
 
-                if (data.data && data.data.length > 0) {
-                    const todayData = data.data.find(d => parseInt(d.date.gregorian.day) === day);
+                if (meta?.latitude) defaultLatitude = parseFloat(meta.latitude);
+                if (meta?.longitude) defaultLongitude = parseFloat(meta.longitude);
 
-                    if (todayData) {
-                        prayerTimesData = todayData.timings;
-                        
-                        // تحديث المواقيت مع تنسيق محسن
-                        PRAYER_ORDER.forEach(prayer => {
-                            if (document.getElementById(prayer)) {
-                                const time = prayerTimesData[prayer];
-                                if (time) {
-                                    // تحويل الوقت إلى تنسيق 24 ساعة بدقة
-                                    const formattedTime = formatPrayerTime(time);
-                                    document.getElementById(prayer).textContent = formattedTime;
-                                } else {
-                                    document.getElementById(prayer).textContent = '--:--';
-                                }
-                            }
-                        });
-                        
-                        document.getElementById('current-city').textContent = cityDisplay;
-                        updateNextPrayerCountdown(true);
-                        
-                        // إضافة مؤشر صوتي عند اقتراب وقت الصلاة
-                        checkPrayerReminders();
-                    } else {
-                        throw new Error("لم يتم العثور على بيانات هذا اليوم.");
-                    }
+                const calUrl = `https://api.aladhan.com/v1/calendar/${year}/${month}?${q}`;
+                const calResp = await fetch(calUrl);
+                const calData = await calResp.json();
+
+                if (calData.data?.length > 0) {
+                    const todayData = calData.data.find(d => parseInt(d.date.gregorian.day, 10) === day);
+                    prayerTimesData = todayData ? todayData.timings : timings;
                 } else {
-                    throw new Error("بيانات مواقيت الصلاة غير متاحة.");
+                    prayerTimesData = timings;
                 }
+
+                PRAYER_ORDER.forEach(prayer => {
+                    const el = document.getElementById(prayer);
+                    if (el && prayerTimesData[prayer]) {
+                        el.textContent = formatPrayerTime(prayerTimesData[prayer]);
+                    }
+                });
+
+                document.getElementById('current-city').textContent = cityDisplay;
+                updateMethodInfoDisplay();
+                updateNextPrayerCountdown(true);
+                checkPrayerReminders();
             } catch (error) {
-                console.error("خطأ في جلب مواقيت الصلاة:", error);
+                console.error('خطأ في جلب مواقيت الصلاة:', error);
                 document.getElementById('current-city').textContent = `خطأ في جلب المواقيت لـ: ${cityDisplay}`;
                 document.querySelectorAll('.prayer-time').forEach(el => el.textContent = 'خطأ');
             }
@@ -3083,8 +3595,9 @@
             if (!timeString || typeof timeString !== 'string') return '--:--';
 
             // إزالة أي مساحات وتنسيق الوقت
-            const cleanTime = timeString.trim();
-            const [hours, minutes] = cleanTime.split(':');
+            const cleanTime = timeString.trim().split(' ')[0];
+            const [hours, minutesPart] = cleanTime.split(':');
+            const minutes = minutesPart ? minutesPart.replace(/\D/g, '') : '';
 
             if (!hours || !minutes) return '--:--';
 
@@ -3290,7 +3803,7 @@
                 }
                 
                 if (totalSeconds <= 0) {
-                     getPrayerTimes(defaultLatitude, defaultLongitude, currentCity); 
+                     getPrayerTimes(defaultLatitude, defaultLongitude, currentCity, currentCountryCode); 
                 }
                 
             } else {
@@ -3300,117 +3813,54 @@
         }
 
 
-        // **4. وظيفة البحث عن المدينة (محسّنة)**
+        // **4. البحث عن المدينة — geocoding ثم إحداثيات**
         let isSearching = false;
 
         async function searchCity(cityName) {
-            console.log('searchCity called with:', cityName);
-            
-            // منع البحث المتكرر
-            if (isSearching) {
-                console.log('Search already in progress');
-                return;
-            }
-            
-            // التحقق من صحة المدخلات
+            if (isSearching) return;
             if (!cityName || cityName.trim().length < 2) {
-                alert('يرجى إدخال اسم مدينة صحيح');
+                alert('يرجى إدخال اسم مدينة صحيح (مثال: الرياض، السعودية)');
                 return;
             }
 
-            const trimmedCity = cityName.trim();
-            const parts = trimmedCity.split(',').map(p => p.trim());
-            const city = parts[0];
-            const country = parts.length > 1 ? parts[1] : '';
-
-            // تفعيل حالة البحث
             isSearching = true;
-            
-            // التحكم في واجهة البحث
             const searchBtn = document.getElementById('search-button');
             const searchIcon = document.getElementById('search-icon');
             const searchSpinner = document.getElementById('search-spinner');
             const searchInput = document.getElementById('city-search');
-            
+
             if (searchBtn) searchBtn.disabled = true;
             if (searchInput) searchInput.disabled = true;
             if (searchIcon) searchIcon.style.display = 'none';
             if (searchSpinner) searchSpinner.style.display = 'block';
 
-            // عرض رسالة البحث
-            const displayText = country ? `${city}, ${country}` : city;
-            document.getElementById('current-city').textContent = `جاري البحث عن ${displayText}...`;
-            document.querySelectorAll('.prayer-time').forEach(el => {
-                el.textContent = '...';
-            });
+            const query = cityName.trim();
+            document.getElementById('current-city').textContent = `جاري البحث عن ${query}...`;
+            document.querySelectorAll('.prayer-time').forEach(el => { el.textContent = '...'; });
 
             try {
-                // استخدام API مع طريقة الحساب والمذهب المختارين
-                const url = `https://api.aladhan.com/v1/timingsByCity?city=${encodeURIComponent(city)}&country=${encodeURIComponent(country)}&method=${calculationMethod}&school=${schoolMethod}`;
-                console.log('Fetching from:', url);
-                
-                const response = await fetch(url);
-                const data = await response.json();
-                console.log('API Response:', data);
+                const geo = await geocodeCity(query);
+                if (!geo) throw new Error('not found');
 
-                if (data.code === 200 && data.data && data.data.timings) {
-                    const meta = data.data.meta;
-                    const timings = data.data.timings;
-                    
-                    // تحديث البيانات العامة
-                    const lat = parseFloat(meta.latitude);
-                    const lon = parseFloat(meta.longitude);
-                    const cityDisplay = country ? `${city}, ${country}` : `${city}, ${meta.timezone}`;
-                    
-                    currentCity = cityDisplay;
-                    defaultLatitude = lat;
-                    defaultLongitude = lon;
-                    
-                    // تحديث مواقيت الصلاة مباشرة
-                    prayerTimesData = timings;
-                    console.log('Updated prayerTimesData:', prayerTimesData);
-                    
-                    // عرض المواقيت
-                    PRAYER_ORDER.forEach(prayer => {
-                        const timeEl = document.getElementById(prayer);
-                        if (timeEl && timings[prayer]) {
-                            timeEl.textContent = formatPrayerTime(timings[prayer]);
-                        }
-                    });
-                    
-                    // تحديث اسم المدينة
-                    document.getElementById('current-city').textContent = cityDisplay;
-                    
-                    // تحديث العد التنازلي
-                    updateNextPrayerCountdown(true);
-                    
-                    // مسح حقل البحث
-                    document.getElementById('city-search').value = '';
-                    
-                    // حفظ المدينة في localStorage
-                    localStorage.setItem('islam-saved-city', currentCity);
-                    localStorage.setItem('islam-saved-lat', defaultLatitude.toString());
-                    localStorage.setItem('islam-saved-lon', defaultLongitude.toString());
-                    
-                    console.log('Search completed successfully!');
-                    
-                } else {
-                    throw new Error("لم يتم العثور على المدينة");
-                }
+                currentCity = geo.displayCity;
+                defaultLatitude = geo.lat;
+                defaultLongitude = geo.lon;
+                currentCountryCode = geo.countryCode || currentCountryCode;
+
+                saveLocationData(currentCity, defaultLatitude, defaultLongitude, currentCountryCode);
+                localStorage.setItem('islam-location-detected', 'true');
+
+                await getPrayerTimes(defaultLatitude, defaultLongitude, currentCity, currentCountryCode);
+
+                if (searchInput) searchInput.value = '';
             } catch (error) {
-                console.error("خطأ في البحث عن المدينة:", error);
-                
-                const errorMsg = `لم يتم العثور على: ${displayText}`;
+                console.error('خطأ في البحث:', error);
+                const errorMsg = `لم يتم العثور على: ${query}`;
                 document.getElementById('current-city').textContent = errorMsg;
-                document.querySelectorAll('.prayer-time').forEach(el => {
-                    el.textContent = '--:--';
-                });
-                
-                alert(errorMsg + '. يرجى المحاولة مرة أخرى.');
+                document.querySelectorAll('.prayer-time').forEach(el => { el.textContent = '--:--'; });
+                alert(errorMsg + '\nجرّب: «المدينة، الدولة» مثل: دبي، الإمارات');
             } finally {
-                // إنهاء حالة البحث
                 isSearching = false;
-                
                 if (searchBtn) searchBtn.disabled = false;
                 if (searchInput) searchInput.disabled = false;
                 if (searchIcon) searchIcon.style.display = 'block';
@@ -3441,14 +3891,13 @@
                             currentCity = location.displayCity;
                             defaultLatitude = location.lat;
                             defaultLongitude = location.lon;
-                            
-                            localStorage.setItem('islam-saved-city', currentCity);
-                            localStorage.setItem('islam-saved-lat', defaultLatitude.toString());
-                            localStorage.setItem('islam-saved-lon', defaultLongitude.toString());
+                            currentCountryCode = location.countryCode || currentCountryCode;
+
+                            saveLocationData(currentCity, defaultLatitude, defaultLongitude, currentCountryCode);
                             localStorage.setItem('islam-location-detected', 'true');
                             localStorage.setItem('islam-last-location-request', new Date().toISOString());
-                            
-                            await getPrayerTimes(defaultLatitude, defaultLongitude, currentCity);
+
+                            await getPrayerTimes(defaultLatitude, defaultLongitude, currentCity, currentCountryCode);
                             
                             // إشعار نجاح سريع واختفاء فوري
                             showQuickSuccessNotification(`تم تحديد موقعك: ${currentCity}`);
@@ -3584,12 +4033,14 @@
             const savedCity = localStorage.getItem('islam-saved-city');
             const savedLat = localStorage.getItem('islam-saved-lat');
             const savedLon = localStorage.getItem('islam-saved-lon');
-            
+            const savedCountry = localStorage.getItem('islam-saved-country');
+
             if (savedCity && savedLat && savedLon) {
                 currentCity = savedCity;
                 defaultLatitude = parseFloat(savedLat);
                 defaultLongitude = parseFloat(savedLon);
             }
+            if (savedCountry) currentCountryCode = savedCountry;
         }
 
         // **6. كشف الموقع التلقائي (محسّن)**
@@ -3608,19 +4059,13 @@
                         const lat = position.coords.latitude;
                         const lon = position.coords.longitude;
                         userLocation = { lat, lon };
-                        
-                        // الحصول على اسم المدينة من الإحداثيات
+
                         try {
-                            const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&accept-language=ar`);
-                            const data = await response.json();
-                            const cityName = data.address?.city || data.address?.town || data.address?.village || 'موقعك';
-                            const countryName = data.address?.country || '';
-                            const displayCity = countryName ? `${cityName}, ${countryName}` : cityName;
-                            
-                            resolve({ lat, lon, displayCity });
+                            const geo = await reverseGeocode(lat, lon);
+                            resolve({ lat, lon, displayCity: geo.displayCity, countryCode: geo.countryCode });
                         } catch (error) {
                             console.error('Error getting city name:', error);
-                            resolve({ lat, lon, displayCity: 'موقعك الحالي' });
+                            resolve({ lat, lon, displayCity: 'موقعك الحالي', countryCode: '' });
                         }
                     },
                     (error) => {
@@ -3693,13 +4138,12 @@
                     currentCity = location.displayCity;
                     defaultLatitude = location.lat;
                     defaultLongitude = location.lon;
-                    
-                    localStorage.setItem('islam-saved-city', currentCity);
-                    localStorage.setItem('islam-saved-lat', defaultLatitude.toString());
-                    localStorage.setItem('islam-saved-lon', defaultLongitude.toString());
+                    currentCountryCode = location.countryCode || currentCountryCode;
+
+                    saveLocationData(currentCity, defaultLatitude, defaultLongitude, currentCountryCode);
                     localStorage.setItem('islam-location-detected', 'true');
-                    
-                    await getPrayerTimes(defaultLatitude, defaultLongitude, currentCity);
+
+                    await getPrayerTimes(defaultLatitude, defaultLongitude, currentCity, currentCountryCode);
                     showQuickSuccessNotification(`تم تحديد موقعك تلقائياً: ${currentCity}`);
                 }
             }, 2000);
@@ -3783,11 +4227,9 @@
                 currentCity = detectedLocation.displayCity;
                 defaultLatitude = detectedLocation.lat;
                 defaultLongitude = detectedLocation.lon;
-                
-                // حفظ الموقع المكتشف
-                localStorage.setItem('islam-saved-city', currentCity);
-                localStorage.setItem('islam-saved-lat', defaultLatitude.toString());
-                localStorage.setItem('islam-saved-lon', defaultLongitude.toString());
+                currentCountryCode = detectedLocation.countryCode || currentCountryCode;
+
+                saveLocationData(currentCity, defaultLatitude, defaultLongitude, currentCountryCode);
                 localStorage.setItem('islam-location-detected', 'true');
             } else {
                 // استخدام الموقع الافتراضي إذا فشل الكشف أو تم الرفض
@@ -3800,8 +4242,8 @@
             }
             
             setInterval(updateClockAndDate, 1000);
-            updateClockAndDate(); 
-            getPrayerTimes(defaultLatitude, defaultLongitude, currentCity);
+            updateClockAndDate();
+            getPrayerTimes(defaultLatitude, defaultLongitude, currentCity, currentCountryCode);
             getHijriDate(new Date());
         }
         
@@ -3812,24 +4254,33 @@
             const panel = document.getElementById('settings-panel');
             panel.classList.toggle('show');
             applyCalculationSettings();
+            updateCalcMethodUiState();
         });
 
-        // مستمعو تغيير طريقة الحساب والمذهب
-        document.getElementById('calc-method').addEventListener('change', function(e) {
-            calculationMethod = parseInt(e.target.value);
+        // مستمعو إعدادات الحساب
+        document.getElementById('calc-auto').addEventListener('change', function(e) {
+            calcAutoMode = e.target.checked;
             saveCalculationSettings();
-            // إعادة جلب المواقيت بالإعدادات الجديدة
+            updateCalcMethodUiState();
+            if (calcAutoMode) applyAutoPrayerSettings(currentCountryCode);
             if (defaultLatitude && defaultLongitude) {
-                getPrayerTimes(defaultLatitude, defaultLongitude, currentCity);
+                getPrayerTimes(defaultLatitude, defaultLongitude, currentCity, currentCountryCode);
+            }
+        });
+
+        document.getElementById('calc-method').addEventListener('change', function(e) {
+            calculationMethod = parseInt(e.target.value, 10);
+            saveCalculationSettings();
+            if (defaultLatitude && defaultLongitude) {
+                getPrayerTimes(defaultLatitude, defaultLongitude, currentCity, currentCountryCode);
             }
         });
 
         document.getElementById('school-method').addEventListener('change', function(e) {
-            schoolMethod = parseInt(e.target.value);
+            schoolMethod = parseInt(e.target.value, 10);
             saveCalculationSettings();
-            // إعادة جلب المواقيت بالإعدادات الجديدة
             if (defaultLatitude && defaultLongitude) {
-                getPrayerTimes(defaultLatitude, defaultLongitude, currentCity);
+                getPrayerTimes(defaultLatitude, defaultLongitude, currentCity, currentCountryCode);
             }
         });
 
@@ -3843,7 +4294,7 @@
             }
         });
 
-        const DEFAULT_BG = 'img/background.jpg';
+        const DEFAULT_BG = 'img/background.webp';
         const IMG_MANIFEST_URL = 'img/manifest.json';
         let projectBackgrounds = [];
 
@@ -4136,6 +4587,8 @@
                 localStorage.removeItem('islam-saved-city');
                 localStorage.removeItem('islam-saved-lat');
                 localStorage.removeItem('islam-saved-lon');
+                localStorage.removeItem('islam-saved-country');
+                localStorage.removeItem('islam-calc-auto');
                 localStorage.removeItem('islam-calc-method');
                 localStorage.removeItem('islam-school-method');
                 localStorage.removeItem('islam-dock-visible');
@@ -4459,10 +4912,10 @@
         const defaultRightDockItems = [
             { id: 'google', title: 'Google', url: 'https://www.google.com/', icon: 'fab fa-google', tooltip: 'Google', class: 'google', hoverColor: '#4285f4' },
             { id: 'youtube', title: 'YouTube', url: 'https://www.youtube.com/', icon: 'fab fa-youtube', tooltip: 'YouTube', class: 'youtube', hoverColor: '#ff0000' },
-            { id: 'tv', title: 'NOON TV', url: 'https://anon-site.github.io/noon.tv/', icon: 'fas fa-tv', tooltip: 'NOON TV', class: 'tv', hoverColor: '#8b5cf6' },
-            { id: 'falcon-x', title: 'Falcon X', url: 'https://anon-site.github.io/falcon.x', icon: 'fas fa-rocket', tooltip: 'Falcon X', class: 'falcon-x', hoverColor: '#FFC107' },
-            { id: 'ai-tools', title: 'AI Tools', url: 'https://anon-site.github.io/ai-tools/', icon: 'fas fa-robot', tooltip: 'دليل أدوات الذكاء الاصطناعي', class: 'ai-tools', hoverColor: '#ec4899' },
-            { id: 'portfolio', title: 'Portfolio', url: 'https://anon-site.github.io/', icon: 'fas fa-user', tooltip: 'موقعي', class: 'portfolio', hoverColor: '#4CAF50' }
+            { id: 'tv', title: 'NOON TV', url: 'https://noon-tv.vercel.app/', icon: 'fas fa-tv', tooltip: 'NOON TV', class: 'tv', hoverColor: '#8b5cf6' },
+            { id: 'falcon-x', title: 'Falcon X', url: 'https://anon-designe.github.io/falcon.x', icon: 'fas fa-rocket', tooltip: 'Falcon X', class: 'falcon-x', hoverColor: '#FFC107' },
+            { id: 'ai-tools', title: 'AI Tools', url: 'https://anon-designe.github.io/ai-tools/', icon: 'fas fa-robot', tooltip: 'دليل أدوات الذكاء الاصطناعي', class: 'ai-tools', hoverColor: '#ec4899' },
+            { id: 'portfolio', title: 'Portfolio', url: 'https://anon-designe.github.io/', icon: 'fas fa-user', tooltip: 'موقعي', class: 'portfolio', hoverColor: '#4CAF50' }
         ];
 
         // قائمة الأيقونات المتاحة
