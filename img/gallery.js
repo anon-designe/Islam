@@ -1,6 +1,6 @@
 // Auto-generated — do not edit manually. Run: node scripts/generate-img-manifest.js
 window.IMG_GALLERY = {
-    "updatedAt": "2026-07-12T18:55:16.309Z",
+    "updatedAt": "2026-07-12T19:07:52.794Z",
     "images": [
         {
             "src": "img/background.jpg",
@@ -17,6 +17,14 @@ window.IMG_GALLERY = {
         {
             "src": "img/3.jpg",
             "name": "3"
+        },
+        {
+            "src": "img/4.png",
+            "name": "4"
+        },
+        {
+            "src": "img/5.avif",
+            "name": "5"
         }
     ]
 };
